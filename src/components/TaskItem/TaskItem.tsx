@@ -3,7 +3,7 @@ import Task from "../../features/models/Task";
 import {
   deleteTaskActionNew,
   toggleTaskStatusActionNew,
-} from "../../features/reducer/actionCreator";
+} from "../../features/actionCreator/actionCreator";
 import Button from "../Button/Button";
 import TaskItemStyled from "./TaskItemStyled";
 
