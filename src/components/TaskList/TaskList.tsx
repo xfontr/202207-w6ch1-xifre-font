@@ -17,11 +17,14 @@ const TaskList = () => {
 
   return (
     <TaskListStyled>
-      <ul className="task-list">
-        {taskList.map((task) => (
-          <TaskItem task={task} key={task.id} />
-        ))}
-      </ul>
+      {taskList.length > 0 && (
+        <ul className="task-list">
+          {taskList.map((task) => (
+            <TaskItem task={task} key={task.id} />
+          ))}
+        </ul>
+      )}
+      {taskList.length === 0 && <p>There are no tasks.</p>}
     </TaskListStyled>
   );
 };

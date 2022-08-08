@@ -12,7 +12,7 @@ const TaskForm = (): JSX.Element => {
   const [userInput, setUserInput] = useState("");
 
   const createTask = (): Task => {
-    const lastId = tasks[tasks.length - 1].id;
+    const lastId = tasks.length === 0 ? 0 : tasks[tasks.length - 1].id;
 
     return {
       id: lastId + 1,
