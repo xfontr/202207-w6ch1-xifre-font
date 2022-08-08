@@ -1,10 +1,14 @@
 :root {
   --primary-color: #f9faf8;
+
   --secondary-color: #8d998f;
+  --secondary-color--low: #8d998f7d;
+
   --contrast-color: #043d2f;
   --typography-color: #090a0e;
 
   --container-padding--big: 1.5rem;
+  --container-gap: 1.3rem;
 
   --rad-border--big: 1.5rem;
   --rad-border--small: 0.8rem;

@@ -1,8 +1,9 @@
 import Button from "../Button/Button";
+import TaskListStyled from "./TaskListStyled";
 
 const TaskList = () => {
   return (
-    <section className="tasks">
+    <TaskListStyled>
       <ul className="task-list">
         <li className="task">
           <article className="task-container">
@@ -11,7 +12,7 @@ const TaskList = () => {
           </article>
         </li>
       </ul>
-    </section>
+    </TaskListStyled>
   );
 };
 
