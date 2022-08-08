@@ -5,14 +5,18 @@ const TaskItemStyled = styled.li`
   border-radius: var(--rad-border--small);
   background-color: var(--secondary-color--low);
 
+  &:hover {
+    background-color: var(--secondary-color);
+  }
+
   & .task-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
   }
 
   & .task-name {
-    cursor: pointer;
     text-decoration: none;
   }
 
