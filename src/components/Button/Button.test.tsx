@@ -6,7 +6,7 @@ describe("Given a Button component", () => {
     test("Then it should show a button with said text content", () => {
       const buttonText = "Hello";
 
-      render(<Button text={buttonText} type="button" />);
+      render(<Button text={buttonText} type="button" action={() => {}} />);
       const button = screen.getByRole("button", { name: buttonText });
 
       expect(button).toBeInTheDocument();
@@ -17,7 +17,7 @@ describe("Given a Button component", () => {
     test("Then it should be prevent defaulted", () => {
       const buttonText = "Hello";
 
-      render(<Button text={buttonText} type="button" />);
+      render(<Button text={buttonText} type="button" action={() => {}} />);
       const button = screen.getByRole("button", { name: buttonText });
       const preventDefaultEvent = createEvent.click(button);
 
