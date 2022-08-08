@@ -8,6 +8,7 @@
   --typography-color: #090a0e;
 
   --container-padding--big: 1.5rem;
+  --container-padding--small: 0.7rem;
   --container-gap: 1.3rem;
 
   --rad-border--big: 1.5rem;
@@ -30,8 +31,8 @@ body {
 }
 
 ul {
-  padding: none;
-  margin: none;
+  padding: 0;
+  margin: 0;
   list-style: none;
 }
 
