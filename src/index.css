@@ -1,0 +1,26 @@
+:root {
+  --primary-color: #f9faf8;
+  --secondary-color: #8d998f;
+
+  --typography-color: #090a0e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: montserrat, sans-serif;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  background: var(--primary-color);
+}
+
+ul {
+  padding: none;
+  margin: none;
+  list-style: none;
+}
