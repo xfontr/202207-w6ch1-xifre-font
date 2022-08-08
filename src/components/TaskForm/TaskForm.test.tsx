@@ -46,4 +46,27 @@ describe("Given a TaskForm component", () => {
       });
     });
   });
+
+  describe("When the user inputs a text and adds the task", () => {
+    test("Then the said text should be displayed in the task", async () => {
+      const newInput = "Gym";
+      render(
+        <Provider store={store}>
+          <TaskForm />
+          <TaskList />
+        </Provider>
+      );
+
+      const input = screen.getByRole("textbox");
+      const button = screen.getByRole("button", { name: "Add" });
+
+      fireEvent.change(input, { target: { value: newInput } });
+      fireEvent.click(button);
+      const newTask = screen.getByText(newInput);
+
+      await waitFor(() => {
+        expect(newTask).toBeInTheDocument();
+      });
+    });
+  });
 });
