@@ -1,8 +1,12 @@
-import { addTaskActionNew, loadTaskActionNew } from "./actionCreator";
+import {
+  addTaskActionNew,
+  deleteTaskActionNew,
+  loadTaskActionNew,
+} from "./actionCreator";
 
 describe("Given a loadTaskActionNew function", () => {
   describe("When instantiated", () => {
-    test("Then it should return an object with type 'loadtasks' and an array of tasks as a payload", () => {
+    test("Then it should return an action with type 'loadtasks' and an array of tasks as a payload", () => {
       const tasks = [
         {
           id: 1,
@@ -25,7 +29,7 @@ describe("Given a loadTaskActionNew function", () => {
 
 describe("Given a addTaskActionNew function", () => {
   describe("When instantiated", () => {
-    test("Then it should return an object with type 'addTasks' and a single task as a payload", () => {
+    test("Then it should return an action with type 'addTasks' and a single task as a payload", () => {
       const task = {
         id: 1,
         name: "",
@@ -38,6 +42,23 @@ describe("Given a addTaskActionNew function", () => {
       };
 
       const result = addTaskActionNew(task);
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
+});
+
+describe("Given a deleteTaskActionNew function", () => {
+  describe("When instantiated with an number as an argument", () => {
+    test("Then it should return an action with type 'deleteTasks' and an id as payload", () => {
+      const taskId = 1;
+
+      const expectedResult = {
+        type: "tasks@delete",
+        payload: taskId,
+      };
+
+      const result = deleteTaskActionNew(taskId);
 
       expect(result).toEqual(expectedResult);
     });
