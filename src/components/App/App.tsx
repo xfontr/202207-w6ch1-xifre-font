@@ -11,6 +11,7 @@ const App = () => {
           <input type="text" id="add-task__name" className="add-task__name" />
           <button type="submit">Add</button>
         </form>
+
         <section className="tasks">
           <ul className="task-list">
             <li className="task">
