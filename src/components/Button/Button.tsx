@@ -1,3 +1,5 @@
+import ButtonStyled from "./ButtonStyled";
+
 interface ButtonProps {
   type: "submit" | "button";
   text: string;
@@ -11,14 +13,14 @@ const Button = ({ type, text }: ButtonProps): JSX.Element => {
   };
 
   return (
-    <button
+    <ButtonStyled
       type={type}
       onClick={(event) => {
         buttonAction(event);
       }}
     >
       {text}
-    </button>
+    </ButtonStyled>
   );
 };
 
