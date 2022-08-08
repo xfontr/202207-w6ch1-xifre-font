@@ -1,4 +1,5 @@
 import Button from "../Button/Button";
+import TaskForm from "../TaskForm/TaskForm";
 
 const App = (): JSX.Element => {
   return (
@@ -8,12 +9,7 @@ const App = (): JSX.Element => {
       </header>
 
       <main className="main-container">
-        <form className="add-task">
-          <label htmlFor="add-task__name" className="add-task__label"></label>
-          <input type="text" id="add-task__name" className="add-task__name" />
-          <Button type="submit" text="Add" />
-        </form>
-
+        <TaskForm />
         <section className="tasks">
           <ul className="task-list">
             <li className="task">
