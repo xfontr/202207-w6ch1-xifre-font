@@ -7,6 +7,8 @@ const TaskListStyled = styled.section`
   border: 1px solid var(--secondary-color);
   border-radius: var(--rad-border--big);
 
+  backdrop-filter: blur(2px);
+
   & ul {
     display: flex;
     flex-direction: column;

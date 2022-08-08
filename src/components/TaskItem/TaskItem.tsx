@@ -24,11 +24,8 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
 
   return (
     <TaskItemStyled>
-      <article className="task-container">
-        <span
-          className={`task-name${task.done ? " task-name--done" : ""}`}
-          onClick={toggleStatus}
-        >
+      <article className="task-container" onClick={toggleStatus}>
+        <span className={`task-name${task.done ? " task-name--done" : ""}`}>
           {task.name}
         </span>
         <Button type="button" text="Delete" action={deleteTask} />
