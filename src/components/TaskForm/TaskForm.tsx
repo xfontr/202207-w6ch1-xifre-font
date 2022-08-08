@@ -1,12 +1,40 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Task from "../../features/models/Task";
+import { addTaskActionNew } from "../../features/reducer/actionCreator";
+import { selectAllTasks } from "../../features/selectors/selectors";
 import Button from "../Button/Button";
 import TaskFormStyled from "./TaskFormStyled";
 
 const TaskForm = (): JSX.Element => {
+  const dispatch = useDispatch();
+  const { tasks } = useSelector(selectAllTasks);
+  const [userInput, setUserInput] = useState("");
+
+  const createTask = (): Task => {
+    const lastId = tasks[tasks.length - 1].id;
+
+    return {
+      id: lastId + 1,
+      name: userInput,
+      done: false,
+    };
+  };
+
+  const addTask = (): void => {
+    dispatch(addTaskActionNew(createTask()));
+  };
+
   return (
     <TaskFormStyled className="add-task">
       <label htmlFor="add-task__name" className="add-task__label"></label>
-      <input type="text" id="add-task__name" className="add-task__name" />
-      <Button type="submit" text="Add" action={() => {}} />
+      <input
+        type="text"
+        id="add-task__name"
+        className="add-task__name"
+        onChange={(e) => setUserInput(e.target.value)}
+      />
+      <Button type="submit" text="Add" action={addTask} />
     </TaskFormStyled>
   );
 };

@@ -1,3 +1,4 @@
+import Task from "../models/Task";
 import tasksReducer from "./tasks.reducer";
 
 describe("Given a tasksReducer function", () => {
@@ -64,6 +65,26 @@ describe("Given a tasksReducer function", () => {
 
       const result = tasksReducer(initialTasks, deleteCardsAction);
       expect(result).toHaveLength(1);
+    });
+  });
+
+  describe("When called with an add task action as an argument, with a task as a payload", () => {
+    test("Then it should return an array with the added task", () => {
+      const initialTasks: Task[] = [];
+
+      const task: Task = {
+        id: 0,
+        name: "",
+        done: false,
+      };
+
+      const addCardsAction = {
+        type: "tasks@add",
+        payload: task,
+      };
+
+      const result = tasksReducer(initialTasks, addCardsAction);
+      expect(result).toStrictEqual([task]);
     });
   });
 });

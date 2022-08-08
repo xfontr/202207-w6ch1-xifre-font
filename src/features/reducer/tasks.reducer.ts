@@ -19,6 +19,11 @@ const tasksReducer = createReducer<Task[]>(initialState, (builder) => {
     state.filter((task) => task.id !== action.payload)
   );
 
+  builder.addCase(actionTypes.add, (state: Task[], action: any) => [
+    ...state,
+    action.payload,
+  ]);
+
   builder.addDefaultCase((state: Task[]) => [...state]);
 });
 
