@@ -10,6 +10,15 @@ const TaskItemStyled = styled.li`
     align-items: center;
     justify-content: space-between;
   }
+
+  & .task-name {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  & .task-name--done {
+    text-decoration: line-through;
+  }
 `;
 
 export default TaskItemStyled;
