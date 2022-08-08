@@ -1,4 +1,6 @@
-const App = () => {
+import Button from "../Button/Button";
+
+const App = (): JSX.Element => {
   return (
     <div className="app">
       <header className="header">
@@ -9,7 +11,7 @@ const App = () => {
         <form className="add-task">
           <label htmlFor="add-task__name" className="add-task__label"></label>
           <input type="text" id="add-task__name" className="add-task__name" />
-          <button type="submit">Add</button>
+          <Button type="submit" text="Add" />
         </form>
 
         <section className="tasks">
@@ -17,7 +19,7 @@ const App = () => {
             <li className="task">
               <article className="task-container">
                 <span className="task-name">Task</span>
-                <button type="button">Delete</button>
+                <Button type="button" text="Delete" />
               </article>
             </li>
           </ul>
