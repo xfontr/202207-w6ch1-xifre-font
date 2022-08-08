@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Task from "../../features/models/Task";
-import { addTaskActionNew } from "../../features/reducer/actionCreator";
+import { addTaskActionNew } from "../../features/actionCreator/actionCreator";
 import { selectAllTasks } from "../../features/selectors/selectors";
 import Button from "../Button/Button";
 import TaskFormStyled from "./TaskFormStyled";

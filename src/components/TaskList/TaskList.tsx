@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadTaskActionNew } from "../../features/reducer/actionCreator";
+import { loadTaskActionNew } from "../../features/actionCreator/actionCreator";
 import { selectAllTasks } from "../../features/selectors/selectors";
 import tasks from "../../utils/tasks";
 import TaskItem from "../TaskItem/TaskItem";
