@@ -5,6 +5,7 @@ const TaskFormStyled = styled.form`
   padding: var(--container-padding--big);
   background-color: var(--secondary-color);
   border-radius: var(--rad-border--big);
+  margin-bottom: var(--container-gap);
 
   & input {
     background-color: var(--primary-color);
