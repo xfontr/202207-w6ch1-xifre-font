@@ -4,6 +4,7 @@ const TaskItemStyled = styled.li`
   padding: var(--container-padding--small);
   border-radius: var(--rad-border--small);
   background-color: var(--secondary-color--low);
+  transition: 0.1s;
 
   &:hover {
     background-color: var(--secondary-color);
