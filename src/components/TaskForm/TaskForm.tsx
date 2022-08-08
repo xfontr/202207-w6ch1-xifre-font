@@ -16,7 +16,7 @@ const TaskForm = (): JSX.Element => {
 
     return {
       id: lastId + 1,
-      name: userInput,
+      name: userInput ? userInput : "You forgot to add text haha",
       done: false,
     };
   };
@@ -33,6 +33,7 @@ const TaskForm = (): JSX.Element => {
         id="add-task__name"
         className="add-task__name"
         onChange={(e) => setUserInput(e.target.value)}
+        autoComplete="off"
       />
       <Button type="submit" text="Add" action={addTask} />
     </TaskFormStyled>
