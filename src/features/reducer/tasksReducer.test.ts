@@ -22,7 +22,7 @@ describe("Given a tasksReducer function", () => {
   });
 
   describe("When called with a load tasks action as an argument", () => {
-    test("Then it should return an array with the cards sent as a payload", () => {
+    test("Then it should return an array with the tasks sent as a payload", () => {
       const initialTasks = [
         {
           id: 1,
@@ -39,6 +39,31 @@ describe("Given a tasksReducer function", () => {
       const result = tasksReducer(initialTasks, loadTasksAction);
 
       expect(result).toStrictEqual(initialTasks);
+    });
+  });
+
+  describe("When called with a delete task action as an argument, with id 1", () => {
+    test("Then it should return an array without the task that has the id specified", () => {
+      const initialTasks = [
+        {
+          id: 0,
+          name: "",
+          done: false,
+        },
+        {
+          id: 1,
+          name: "",
+          done: false,
+        },
+      ];
+
+      const deleteCardsAction = {
+        type: "tasks@delete",
+        payload: 1,
+      };
+
+      const result = tasksReducer(initialTasks, deleteCardsAction);
+      expect(result).toHaveLength(1);
     });
   });
 });
