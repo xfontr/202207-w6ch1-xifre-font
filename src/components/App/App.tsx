@@ -1,18 +1,20 @@
 import TaskForm from "../TaskForm/TaskForm";
 import TaskList from "../TaskList/TaskList";
+import AppStyled from "./AppStyled";
+import "@fontsource/montserrat";
 
 const App = (): JSX.Element => {
   return (
-    <div className="app">
+    <AppStyled>
       <header className="header">
-        <h2 className="title">MyTasks</h2>
+        <h1 className="title">MyTasks</h1>
       </header>
 
       <main className="main-container">
         <TaskForm />
         <TaskList />
       </main>
-    </div>
+    </AppStyled>
   );
 };
 
