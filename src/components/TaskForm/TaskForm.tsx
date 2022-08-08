@@ -32,8 +32,11 @@ const TaskForm = (): JSX.Element => {
         type="text"
         id="add-task__name"
         className="add-task__name"
-        onChange={(e) => setUserInput(e.target.value)}
+        onChange={(event): void => {
+          setUserInput(event.target.value);
+        }}
         autoComplete="off"
+        placeholder="Write a new task"
       />
       <Button type="submit" text="Add" action={addTask} />
     </TaskFormStyled>
