@@ -11,9 +11,9 @@ const initialState: Task[] = [
 ];
 
 const tasksReducer = createReducer<Task[]>(initialState, (builder) => {
-  builder.addCase(actionTypes.load, (state: Task[], action: any) => {
-    state = [...action.payload];
-  });
+  builder.addCase(actionTypes.load, (state: Task[], action: any) => [
+    ...action.payload,
+  ]);
   builder.addDefaultCase((state: Task[]) => [...state]);
 });
 
