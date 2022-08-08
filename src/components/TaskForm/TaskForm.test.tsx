@@ -33,7 +33,6 @@ describe("Given a TaskForm component", () => {
         </Provider>
       );
 
-      // const input = screen.getByRole("textbox");
       const button = screen.getByRole("button", { name: "Add" });
       const tasks = screen.getAllByRole("article");
 

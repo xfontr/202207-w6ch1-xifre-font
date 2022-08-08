@@ -1,3 +1,4 @@
+import { waitFor } from "@testing-library/react";
 import Task from "../models/Task";
 import tasksReducer from "./tasks.reducer";
 
@@ -85,6 +86,36 @@ describe("Given a tasksReducer function", () => {
 
       const result = tasksReducer(initialTasks, addCardsAction);
       expect(result).toStrictEqual([task]);
+    });
+  });
+
+  describe("When called with a toggle status task action as an argument, with an id as a payload", () => {
+    test("Then it should return the same array having toggled the task status done", async () => {
+      const initialTasks: Task[] = [
+        {
+          id: 0,
+          name: "",
+          done: true,
+        },
+        {
+          id: 1,
+          name: "",
+          done: false,
+        },
+      ];
+      const taskId = 1;
+
+      const toggleCardsAction = {
+        type: "tasks@toggleStatus",
+        payload: taskId,
+      };
+
+      const result = tasksReducer(initialTasks, toggleCardsAction);
+
+      await waitFor(() => {
+        expect(result[0].done).toBe(true);
+        expect(result[1].done).toBe(true);
+      });
     });
   });
 });
