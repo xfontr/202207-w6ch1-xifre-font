@@ -24,6 +24,13 @@ const tasksReducer = createReducer<Task[]>(initialState, (builder) => {
     action.payload,
   ]);
 
+  builder.addCase(actionTypes.toggleDoneStatus, (state: Task[], action: any) =>
+    state.map((task) => ({
+      ...task,
+      done: task.id === action.payload ? !task.done : task.done,
+    }))
+  );
+
   builder.addDefaultCase((state: Task[]) => [...state]);
 });
 

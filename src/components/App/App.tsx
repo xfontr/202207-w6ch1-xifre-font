@@ -1,7 +1,6 @@
 import TaskForm from "../TaskForm/TaskForm";
 import TaskList from "../TaskList/TaskList";
 import AppStyled from "./AppStyled";
-import "@fontsource/montserrat";
 
 const App = (): JSX.Element => {
   return (
