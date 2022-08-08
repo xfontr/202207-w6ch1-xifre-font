@@ -1,6 +1,9 @@
 import { useDispatch } from "react-redux";
 import Task from "../../features/models/Task";
-import { deleteTaskActionNew } from "../../features/reducer/actionCreator";
+import {
+  deleteTaskActionNew,
+  toggleTaskStatusActionNew,
+} from "../../features/reducer/actionCreator";
 import Button from "../Button/Button";
 import TaskItemStyled from "./TaskItemStyled";
 
@@ -15,10 +18,19 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     dispatch(deleteTaskActionNew(task.id));
   };
 
+  const toggleStatus = () => {
+    dispatch(toggleTaskStatusActionNew(task.id));
+  };
+
   return (
     <TaskItemStyled>
       <article className="task-container">
-        <span className="task-name">{task.name}</span>
+        <span
+          className={`task-name${task.done ? " task-name--done" : ""}`}
+          onClick={toggleStatus}
+        >
+          {task.name}
+        </span>
         <Button type="button" text="Delete" action={deleteTask} />
       </article>
     </TaskItemStyled>
