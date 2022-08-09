@@ -86,9 +86,9 @@ describe("Given a TaskForm component", () => {
   });
 
   describe("When the user inputs no text and adds the task", () => {
-    test("Then a default text of 'You forgot to add text haha' should be displayed in the task", async () => {
+    test("Then a default text of 'Press double click edit this task' should be displayed in the task", async () => {
       const newInput = "";
-      const expectedText = "You forgot to add text haha";
+      const expectedText = "Press double click edit this task";
 
       render(
         <Provider store={store}>
