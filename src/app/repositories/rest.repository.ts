@@ -44,7 +44,7 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
       return response.json();
     } catch (error) {
-      return error;
+      return "Error";
     }
   }
 
@@ -70,7 +70,7 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
   async delete(id: T["id"]) {
     try {
-      const response = await fetch(this.url + id, {
+      const response = await fetch(`${this.url}/${id}`, {
         method: "DELETE",
       });
 
@@ -80,7 +80,7 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
       return response;
     } catch (error) {
-      return error;
+      return "Error";
     }
   }
 }

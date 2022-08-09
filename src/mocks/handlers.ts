@@ -1,6 +1,7 @@
 import { rest } from "msw";
 
 const url = "http://localhost:3000/posts";
+const invalidUrl = "http://qwertyytrewqasdf.fdas.fds/afd/";
 
 export const handlers = [
   rest.get(url, (req, res, ctx) => {
@@ -20,9 +21,27 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        id: 1,
-        name: "Meet Dan",
+        id: 2,
+        name: "Meet Uncle Bob",
         done: false,
+      })
+    );
+  }),
+
+  rest.get(invalidUrl, (req, res, ctx) => {
+    return res(
+      ctx.status(400),
+      ctx.json({
+        error: "Nothing here",
+      })
+    );
+  }),
+
+  rest.get(invalidUrl, (req, res, ctx) => {
+    return res(
+      ctx.status(400),
+      ctx.json({
+        error: "Nothing here",
       })
     );
   }),
