@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Task from "../../features/models/Task";
 import { addTaskActionNew } from "../../features/actionCreator/actionCreator";
 import { selectAllTasks } from "../../features/selectors/selectors";
 import Button from "../Button/Button";
 import TaskFormStyled from "./TaskFormStyled";
+import RestRepository from "../../app/repositories/rest.repository";
+
+const url = "http://localhost:3000/posts/";
 
 const TaskForm = (): JSX.Element => {
+  const repoTasks = useMemo(() => new RestRepository<Task, Response>(url), []);
+
   const dispatch = useDispatch();
   const { tasks } = useSelector(selectAllTasks);
   const [userInput, setUserInput] = useState("");
@@ -23,6 +28,7 @@ const TaskForm = (): JSX.Element => {
 
   const addTask = (): void => {
     dispatch(addTaskActionNew(createTask()));
+    repoTasks.add(createTask());
     setUserInput("");
   };
 

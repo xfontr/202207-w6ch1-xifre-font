@@ -25,7 +25,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "test-coverage": "react-scripts test --coverage --watchAll=false"
+    "test-coverage": "react-scripts test --coverage --watchAll=false",
+    "server": "json-server --watch ./server/data.json"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@types/styled-components": "^5.1.25",
     "husky": "^8.0.1",
+    "json-server": "^0.17.0",
     "styled-components": "^5.3.5"
   },
   "jest": {

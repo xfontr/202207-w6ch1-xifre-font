@@ -1,17 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import RestRepository from "../../app/repositories/rest.repository";
 import { loadTaskActionNew } from "../../features/actionCreator/actionCreator";
+import Task from "../../features/models/Task";
 import { selectAllTasks } from "../../features/selectors/selectors";
-import tasks from "../../utils/tasks";
 import TaskItem from "../TaskItem/TaskItem";
 import TaskListStyled from "./TaskListStyled";
 
+const url = "http://localhost:3000/posts";
+
 const TaskList = () => {
   const dispatch = useDispatch();
+  const repoTasks = useMemo(() => new RestRepository<Task, Response>(url), []);
 
   useEffect(() => {
-    dispatch(loadTaskActionNew(tasks));
-  }, [dispatch]);
+    repoTasks.loadAll().then((tasks) => dispatch(loadTaskActionNew(tasks)));
+  }, [dispatch, repoTasks]);
 
   const { tasks: taskList } = useSelector(selectAllTasks);
 

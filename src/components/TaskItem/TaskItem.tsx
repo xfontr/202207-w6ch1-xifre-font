@@ -7,14 +7,19 @@ import {
 } from "../../features/actionCreator/actionCreator";
 import Button from "../Button/Button";
 import TaskItemStyled from "./TaskItemStyled";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import RestRepository from "../../app/repositories/rest.repository";
 
 interface TaskProps {
   task: Task;
 }
 
+const url = "http://localhost:3000/posts/";
+
 const TaskItem = ({ task }: TaskProps): JSX.Element => {
+  const repoTasks = useMemo(() => new RestRepository<Task, Response>(url), []);
   const dispatch = useDispatch();
+
   const [{ isEdit, userInput }, setEditStatus] = useState({
     isEdit: false,
     userInput: "",
@@ -44,19 +49,22 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     removalEffect(event);
 
     setTimeout(() => {
-      dispatch(deleteTaskActionNew(task.id));
+      repoTasks
+        .delete(task.id)
+        .then((tasks) => dispatch(deleteTaskActionNew(task.id)));
     }, 600);
   };
 
   const toggleStatus = (id: number): void => {
     dispatch(toggleTaskStatusActionNew(id));
+    repoTasks.update(task);
   };
 
   const editTask = (): void => {
     setEditStatus({ isEdit: true, userInput: task.name });
   };
 
-  const updateTask = () => {
+  const updateTask = async () => {
     dispatch(
       editTaskActionNew({
         id: task.id,
@@ -66,6 +74,8 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     );
 
     setEditStatus({ isEdit: false, userInput: "" });
+
+    await repoTasks.update(task);
   };
 
   return (

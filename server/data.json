@@ -1,0 +1,38 @@
+{
+  "posts": [
+    {
+      "id": 2,
+      "name": "Learn redux never",
+      "done": true
+    },
+    {
+      "id": 3,
+      "name": "Kill the noisy neighbours!!!!",
+      "done": true
+    },
+    {
+      "id": 4,
+      "name": "asdfasdfasdf",
+      "done": true
+    },
+    {
+      "id": 5,
+      "name": "New task",
+      "done": false
+    },
+    {
+      "id": 6,
+      "name": "asdffadsadfsafds",
+      "done": false
+    },
+    {
+      "id": 1,
+      "name": "Clean",
+      "done": false
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}
