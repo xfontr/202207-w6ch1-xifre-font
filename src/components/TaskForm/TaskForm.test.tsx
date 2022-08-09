@@ -1,8 +1,23 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { Provider } from "react-redux";
+import {
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from "@testing-library/react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "../../app/store";
+import { deleteTaskActionNew } from "../../features/actionCreator/actionCreator";
+import { selectAllTasks } from "../../features/selectors/selectors";
 import TaskList from "../TaskList/TaskList";
 import TaskForm from "./TaskForm";
+interface WrapperProps {
+  children: JSX.Element | JSX.Element[];
+}
+
+const Wrapper = ({ children }: WrapperProps): JSX.Element => (
+  <Provider store={store}>{children}</Provider>
+);
 
 describe("Given a TaskForm component", () => {
   describe("When instantiated", () => {
@@ -66,6 +81,81 @@ describe("Given a TaskForm component", () => {
 
       await waitFor(() => {
         expect(newTask).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe("When the user inputs no text and adds the task", () => {
+    test("Then a default text of 'You forgot to add text haha' should be displayed in the task", async () => {
+      const newInput = "";
+      const expectedText = "You forgot to add text haha";
+      render(
+        <Provider store={store}>
+          <TaskForm />
+          <TaskList />
+        </Provider>
+      );
+
+      const input = screen.getByRole("textbox");
+      const button = screen.getByRole("button", { name: "Add" });
+
+      fireEvent.change(input, { target: { value: newInput } });
+      fireEvent.click(button);
+      const newTask = screen.getByText(expectedText);
+
+      await waitFor(() => {
+        expect(newTask).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe("When the user adds a task and there are no tasks", () => {
+    test("Then the new task should have an id of 0", async () => {
+      const taskName = "Clean";
+      const expectedId = 1;
+
+      render(
+        <>
+          <TaskForm />
+          <TaskList />
+        </>,
+        { wrapper: Wrapper }
+      );
+
+      const input = screen.getByRole("textbox");
+      const addButton = screen.getByRole("button", { name: "Add" });
+
+      const {
+        result: { current },
+      } = renderHook(() => useDispatch(), {
+        wrapper: Wrapper,
+      });
+
+      for (let index = 1; index < 5; index += 1) {
+        current(deleteTaskActionNew(index));
+      }
+
+      const {
+        result: {
+          current: { tasks },
+        },
+      } = renderHook(() => useSelector(selectAllTasks), {
+        wrapper: Wrapper,
+      });
+
+      expect(tasks).toHaveLength(0);
+
+      fireEvent.change(input, { target: { value: taskName } });
+      fireEvent.click(addButton);
+
+      const {
+        result: {
+          current: { tasks: tasksAfterDelete },
+        },
+      } = renderHook(() => useSelector(selectAllTasks), { wrapper: Wrapper });
+
+      await waitFor(() => {
+        expect(tasksAfterDelete[0].id).toBe(expectedId);
       });
     });
   });
