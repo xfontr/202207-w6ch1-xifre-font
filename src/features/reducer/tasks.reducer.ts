@@ -4,6 +4,7 @@ import actionTypes from "../models/actionTypes";
 import {
   IActionAdd,
   IActionDelete,
+  IActionEdit,
   IActionLoad,
   IActionToggle,
 } from "../models/ActionInterfaces";
@@ -37,6 +38,13 @@ const tasksReducer = createReducer<Task[]>(initialState, (builder) => {
         ...task,
         done: task.id === action.payload ? !task.done : task.done,
       }))
+  );
+
+  builder.addCase(actionTypes.edit, (state: Task[], action: IActionEdit) =>
+    state.map((task) => ({
+      ...task,
+      name: task.id === action.payload.id ? action.payload.name : task.name,
+    }))
   );
 
   builder.addDefaultCase((state: Task[]) => [...state]);

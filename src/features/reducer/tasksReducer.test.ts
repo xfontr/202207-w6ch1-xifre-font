@@ -118,4 +118,38 @@ describe("Given a tasksReducer function", () => {
       });
     });
   });
+
+  describe("When called with a edit status task action as an argument, with a task as a payload", () => {
+    test("Then it should return the same array having changed the task name", async () => {
+      const initialTasks: Task[] = [
+        {
+          id: 0,
+          name: "",
+          done: true,
+        },
+        {
+          id: 1,
+          name: "",
+          done: false,
+        },
+      ];
+
+      const taskToEdit = {
+        id: 0,
+        name: "Clean the house",
+        done: true,
+      };
+
+      const toggleCardsAction = {
+        type: "tasks@edit",
+        payload: taskToEdit,
+      };
+
+      const result = tasksReducer(initialTasks, toggleCardsAction);
+
+      await waitFor(() => {
+        expect(result[0].name).toBe("Clean the house");
+      });
+    });
+  });
 });
