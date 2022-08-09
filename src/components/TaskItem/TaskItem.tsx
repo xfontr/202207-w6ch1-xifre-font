@@ -2,10 +2,12 @@ import { useDispatch } from "react-redux";
 import Task from "../../features/models/Task";
 import {
   deleteTaskActionNew,
+  editTaskActionNew,
   toggleTaskStatusActionNew,
 } from "../../features/actionCreator/actionCreator";
 import Button from "../Button/Button";
 import TaskItemStyled from "./TaskItemStyled";
+import { useState } from "react";
 
 interface TaskProps {
   task: Task;
@@ -13,6 +15,10 @@ interface TaskProps {
 
 const TaskItem = ({ task }: TaskProps): JSX.Element => {
   const dispatch = useDispatch();
+  const [{ isEdit, userInput }, setEditStatus] = useState({
+    isEdit: false,
+    userInput: "",
+  });
 
   const removalEffect = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const article = event.target.parentElement as HTMLElement;
@@ -46,6 +52,22 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     dispatch(toggleTaskStatusActionNew(id));
   };
 
+  const editTask = (): void => {
+    setEditStatus({ isEdit: true, userInput: "" });
+  };
+
+  const updateTask = () => {
+    dispatch(
+      editTaskActionNew({
+        id: task.id,
+        name: userInput,
+        done: !task.done,
+      })
+    );
+
+    setEditStatus({ isEdit: false, userInput: "" });
+  };
+
   return (
     <TaskItemStyled>
       <article
@@ -54,15 +76,33 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
           toggleStatus(task.id);
         }}
       >
-        <span className={`task-name${task.done ? " task-name--done" : ""}`}>
-          {task.name}
-        </span>
+        {!isEdit && (
+          <span
+            className={`task-name${task.done ? " task-name--done" : ""}`}
+            onDoubleClick={editTask}
+          >
+            {task.name}
+          </span>
+        )}
+        {isEdit && (
+          <input
+            type="text"
+            className="add-task__name"
+            value={userInput}
+            onChange={(event): void => {
+              setEditStatus({ isEdit: true, userInput: event.target.value });
+            }}
+            autoComplete="off"
+            placeholder="Task content"
+          />
+        )}
         <Button
           type="button"
-          text="Delete"
+          text={isEdit ? "Edit" : "Delete"}
           action={() => {}}
           eventAction={(event: React.ChangeEvent<HTMLInputElement>) => {
-            deleteTask(event);
+            !isEdit && deleteTask(event);
+            isEdit && updateTask();
           }}
         />
       </article>
