@@ -30,6 +30,14 @@ const TaskItemStyled = styled.li`
   & .task-name--done {
     text-decoration: line-through;
   }
+
+  & input {
+    background-color: transparent;
+    border: 1px solid var(--contrast-color);
+    border-width: 0 0 1px 0;
+    outline: none;
+    width: 75%;
+  }
 `;
 
 export default TaskItemStyled;

@@ -53,7 +53,7 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
   };
 
   const editTask = (): void => {
-    setEditStatus({ isEdit: true, userInput: "" });
+    setEditStatus({ isEdit: true, userInput: task.name });
   };
 
   const updateTask = () => {
@@ -98,7 +98,7 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
         )}
         <Button
           type="button"
-          text={isEdit ? "Edit" : "Delete"}
+          text={isEdit ? "Ok" : "Delete"}
           action={() => {}}
           eventAction={(event: React.ChangeEvent<HTMLInputElement>) => {
             !isEdit && deleteTask(event);
