@@ -1,5 +1,6 @@
 import {
   fireEvent,
+  getAllByText,
   render,
   renderHook,
   screen,
@@ -101,20 +102,18 @@ describe("Given a TaskForm component", () => {
         </Provider>
       );
 
-      const deleteButtons = screen.getAllByRole("button", { name: "Delete" });
-      deleteButtons.forEach((button) => {
-        fireEvent.click(button);
-      });
+      const initialState = screen.getAllByText(expectedText);
 
       const input = screen.getByRole("textbox");
       const button = screen.getByRole("button", { name: "Add" });
 
       fireEvent.change(input, { target: { value: newInput } });
       fireEvent.click(button);
-      const newTask = screen.getByText(expectedText);
+
+      const latterState = screen.getAllByText(expectedText);
 
       await waitFor(() => {
-        expect(newTask).toBeInTheDocument();
+        expect(latterState).toHaveLength(initialState.length + 1);
       });
     });
   });

@@ -106,22 +106,6 @@ describe("Given a Task component", () => {
 
   describe("When double clicking the task name and submiting an edited name", () => {
     test("Then it should display again the task with the new name", async () => {
-      const task = {
-        id: 10,
-        name: "Gym",
-        done: true,
-      };
-
-      const {
-        result: { current: dispatch },
-      } = renderHook(() => useDispatch(), {
-        wrapper: Wrapper,
-      });
-
-      act(() => {
-        dispatch(addTaskActionNew(task));
-      });
-
       const newTaskName = "Footing";
 
       const {
