@@ -15,7 +15,11 @@ const TaskList = () => {
 
   useEffect(() => {
     repoTasks.loadAll().then((tasks: Task[]) => {
-      if (tasks.length > 0) dispatch(loadTaskActionNew(tasks));
+      if (tasks.length > 0) {
+        dispatch(loadTaskActionNew(tasks));
+      } else {
+        dispatch(loadTaskActionNew([]));
+      }
     });
   }, [dispatch, repoTasks]);
 
