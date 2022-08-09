@@ -49,9 +49,9 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     removalEffect(event);
 
     setTimeout(() => {
-      repoTasks
-        .delete(task.id)
-        .then(() => dispatch(deleteTaskActionNew(task.id)));
+      repoTasks.delete(task.id).then(() => {
+        dispatch(deleteTaskActionNew(task.id));
+      });
     }, 600);
   };
 
