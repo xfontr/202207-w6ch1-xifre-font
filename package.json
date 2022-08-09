@@ -50,6 +50,7 @@
     "@types/styled-components": "^5.1.25",
     "husky": "^8.0.1",
     "json-server": "^0.17.0",
+    "msw": "^0.44.2",
     "styled-components": "^5.3.5"
   },
   "jest": {
