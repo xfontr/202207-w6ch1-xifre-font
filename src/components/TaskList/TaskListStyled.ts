@@ -8,6 +8,12 @@ const TaskListStyled = styled.section`
   border-radius: var(--rad-border--big);
 
   backdrop-filter: blur(2px);
+  overflow-y: scroll;
+  height: 90vh;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   & ul {
     display: flex;

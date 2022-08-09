@@ -17,8 +17,14 @@ const TaskItemStyled = styled.li`
     cursor: pointer;
   }
 
+  & .task-name::-webkit-scrollbar {
+    display: none;
+  }
+
   & .task-name {
     text-decoration: none;
+    max-width: 75%;
+    overflow-x: scroll;
   }
 
   & .task-name--done {
