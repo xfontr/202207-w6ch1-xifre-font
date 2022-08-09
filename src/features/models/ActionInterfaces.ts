@@ -19,3 +19,8 @@ export interface IActionAdd {
   type: string;
   payload: Task;
 }
+
+export interface IActionEdit {
+  type: string;
+  payload: Task;
+}
