@@ -1,8 +1,6 @@
-interface Item {
-  id: string;
-}
+import Task from "../../features/models/Task";
 
-interface RestRepositoryType<T extends Item> {
+interface RestRepositoryType<T extends Task, R> {
   load: (id: string) => Promise<T>;
   loadAll: () => Promise<Array<T>>;
   add: (item: Partial<T>) => Promise<T>;
@@ -10,7 +8,7 @@ interface RestRepositoryType<T extends Item> {
   delete: (id: T["id"]) => Promise<Response>;
 }
 
-class RestRepository<T extends Item> implements RestRepositoryType<T> {
+class RestRepository<T extends Task, R> implements RestRepositoryType<T, R> {
   constructor(public url: string) {}
 
   load(id: string) {
