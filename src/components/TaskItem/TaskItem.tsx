@@ -9,6 +9,7 @@ import Button from "../Button/Button";
 import TaskItemStyled from "./TaskItemStyled";
 import { useMemo, useState } from "react";
 import RestRepository from "../../app/repositories/rest.repository";
+import removalEffect from "./taskRemoveEffect";
 
 interface TaskProps {
   task: Task;
@@ -24,26 +25,6 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     isEdit: false,
     userInput: "",
   });
-
-  const removalEffect = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const article = event.target.parentElement as HTMLElement;
-    const list = article.parentElement as HTMLElement;
-
-    let rotation = 10;
-
-    setInterval(() => {
-      rotation += 2;
-
-      list.setAttribute(
-        "style",
-        `transform: scale(${
-          rotation * 0.022
-        }) rotateY(${rotation}deg) rotateX(${rotation / 70}deg) rotateZ(-${
-          rotation / 15
-        }deg);`
-      );
-    }, 10);
-  };
 
   const deleteTask = (event: React.ChangeEvent<HTMLInputElement>): void => {
     removalEffect(event);
@@ -64,14 +45,14 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     setEditStatus({ isEdit: true, userInput: task.name });
   };
 
+  const newTask = () => ({
+    id: task.id,
+    name: userInput ? userInput : task.name,
+    done: !task.done,
+  });
+
   const updateTask = async () => {
-    dispatch(
-      editTaskActionNew({
-        id: task.id,
-        name: userInput ? userInput : task.name,
-        done: !task.done,
-      })
-    );
+    dispatch(editTaskActionNew(newTask()));
 
     setEditStatus({ isEdit: false, userInput: "" });
 
