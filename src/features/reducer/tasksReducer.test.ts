@@ -113,8 +113,7 @@ describe("Given a tasksReducer function", () => {
       const result = tasksReducer(initialTasks, toggleCardsAction);
 
       await waitFor(() => {
-        expect(result[0].done).toBe(true);
-        expect(result[1].done).toBe(true);
+        result.forEach((item) => expect(item.done).toBe(true));
       });
     });
   });
