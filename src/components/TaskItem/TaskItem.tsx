@@ -14,7 +14,7 @@ interface TaskProps {
 const TaskItem = ({ task }: TaskProps): JSX.Element => {
   const dispatch = useDispatch();
 
-  const removalEffect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const removalEffect = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const article = event.target.parentElement as HTMLElement;
     const list = article.parentElement as HTMLElement;
 
@@ -34,7 +34,7 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     }, 10);
   };
 
-  const deleteTask = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const deleteTask = (event: React.ChangeEvent<HTMLInputElement>): void => {
     removalEffect(event);
 
     setTimeout(() => {
@@ -42,13 +42,18 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     }, 600);
   };
 
-  const toggleStatus = () => {
-    dispatch(toggleTaskStatusActionNew(task.id));
+  const toggleStatus = (id: number): void => {
+    dispatch(toggleTaskStatusActionNew(id));
   };
 
   return (
     <TaskItemStyled>
-      <article className="task-container" onClick={toggleStatus}>
+      <article
+        className="task-container"
+        onClick={() => {
+          toggleStatus(task.id);
+        }}
+      >
         <span className={`task-name${task.done ? " task-name--done" : ""}`}>
           {task.name}
         </span>

@@ -1,7 +1,18 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 import { Provider } from "react-redux";
 import { store } from "../../app/store";
+import TaskList from "../TaskList/TaskList";
 import TaskItem from "./TaskItem";
+
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.clearAllTimers();
+  jest.useRealTimers();
+});
 
 describe("Given a Task component", () => {
   describe("When instantiated with a task as a prop", () => {
@@ -21,6 +32,31 @@ describe("Given a Task component", () => {
       const taskItem = screen.getByRole("article", { name: "" });
 
       expect(taskItem).toBeInTheDocument();
+    });
+  });
+
+  describe("When pressed all the Delete buttons", () => {
+    test("Then it should delete all the task items", async () => {
+      render(
+        <Provider store={store}>
+          <TaskList />
+        </Provider>
+      );
+
+      const deleteButton = screen.getAllByRole("button", { name: "Delete" });
+      const taskItems = screen.getAllByRole("article", { name: "" });
+
+      expect(taskItems).toHaveLength(4);
+
+      deleteButton.forEach((button) => fireEvent.click(button));
+
+      act(() => {
+        jest.advanceTimersByTime(1000);
+      });
+
+      await waitFor(() => {
+        taskItems.forEach((item) => expect(item).not.toBeInTheDocument());
+      });
     });
   });
 });
