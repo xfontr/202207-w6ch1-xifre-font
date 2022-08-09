@@ -124,9 +124,17 @@ describe("Given a Task component", () => {
 
       const newTaskName = "Footing";
 
-      render(<TaskItem task={task} />, { wrapper: Wrapper });
+      const {
+        result: {
+          current: { tasks: initialTask },
+        },
+      } = renderHook(() => useSelector(selectAllTasks), {
+        wrapper: Wrapper,
+      });
 
-      const editTask = screen.getByText("Gym");
+      render(<TaskItem task={initialTask[0]} />, { wrapper: Wrapper });
+
+      const editTask = screen.getByText("Meet Dan");
       fireEvent.doubleClick(editTask);
 
       const inputField: HTMLInputElement = screen.getByRole("textbox");

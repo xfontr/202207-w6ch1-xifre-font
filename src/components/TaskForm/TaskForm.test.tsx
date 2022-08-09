@@ -39,8 +39,8 @@ describe("Given a TaskForm component", () => {
 
   describe("When instantiated and the user clicks add a new task", () => {
     test("Then it should add a new task with the input value", async () => {
-      const initialTasks = 4;
-      const expectedTasks = 5;
+      const initialTasks = 1;
+      const expectedTasks = 2;
 
       render(
         <Provider store={store}>
@@ -100,6 +100,11 @@ describe("Given a TaskForm component", () => {
           <TaskList />
         </Provider>
       );
+
+      const deleteButtons = screen.getAllByRole("button", { name: "Delete" });
+      deleteButtons.forEach((button) => {
+        fireEvent.click(button);
+      });
 
       const input = screen.getByRole("textbox");
       const button = screen.getByRole("button", { name: "Add" });
