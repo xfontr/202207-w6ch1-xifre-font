@@ -59,4 +59,32 @@ describe("Given a Task component", () => {
       });
     });
   });
+
+  describe("When double clicking the task name", () => {
+    test("Then it should go away and show an input and a 'Ok' button", async () => {
+      const task = {
+        id: 1,
+        name: "Gym",
+        done: true,
+      };
+
+      render(
+        <Provider store={store}>
+          <TaskItem task={task} />
+        </Provider>
+      );
+
+      const editTask = screen.getByText("Gym");
+
+      fireEvent.doubleClick(editTask);
+
+      const inputField: HTMLInputElement = screen.getByRole("textbox");
+      const submitButton = screen.getByRole("button", { name: "Ok" });
+
+      expect(inputField).toBeInTheDocument();
+      expect(inputField.value).toBe("Gym");
+      expect(editTask).not.toBeInTheDocument();
+      expect(submitButton).toBeInTheDocument();
+    });
+  });
 });

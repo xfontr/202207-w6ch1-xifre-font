@@ -17,6 +17,7 @@ const TaskList = () => {
 
   return (
     <TaskListStyled>
+      <span className="info-tag">Press double click to edit.</span>
       {taskList.length > 0 && (
         <ul className="task-list">
           {taskList.map((task) => (

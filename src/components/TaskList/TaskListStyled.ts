@@ -20,6 +20,13 @@ const TaskListStyled = styled.section`
     flex-direction: column;
     gap: var(--container-gap);
   }
+
+  & .info-tag {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-style: italic;
+    color: var(--contrast-color);
+  }
 `;
 
 export default TaskListStyled;
