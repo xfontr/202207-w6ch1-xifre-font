@@ -51,7 +51,7 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     setTimeout(() => {
       repoTasks
         .delete(task.id)
-        .then((tasks) => dispatch(deleteTaskActionNew(task.id)));
+        .then(() => dispatch(deleteTaskActionNew(task.id)));
     }, 600);
   };
 

@@ -1,14 +1,13 @@
 import Task from "../../features/models/Task";
 
-interface RestRepositoryType<T extends Task, R> {
+interface RestRepositoryType<T extends Task> {
   load: (id: string) => Promise<T>;
   loadAll: () => Promise<Array<T>>;
   add: (item: Partial<T>) => Promise<T>;
   update: (item: Partial<T>) => Promise<T>;
   delete: (id: T["id"]) => Promise<Response>;
 }
-
-class RestRepository<T extends Task, R> implements RestRepositoryType<T, R> {
+class RestRepository<T extends Task> implements RestRepositoryType<T> {
   constructor(public url: string) {}
 
   load(id: string) {
