@@ -106,35 +106,19 @@ describe("Given a Task component", () => {
 
   describe("When double clicking the task name and submiting an edited name", () => {
     test("Then it should display again the task with the new name", async () => {
-      const task = {
-        id: 10,
-        name: "Gym",
-        done: true,
-      };
-
-      const {
-        result: { current: dispatch },
-      } = renderHook(() => useDispatch(), {
-        wrapper: Wrapper,
-      });
-
-      act(() => {
-        dispatch(addTaskActionNew(task));
-      });
-
       const newTaskName = "Footing";
 
       const {
         result: {
-          current: { tasks: initialTasks },
+          current: { tasks: initialTask },
         },
       } = renderHook(() => useSelector(selectAllTasks), {
         wrapper: Wrapper,
       });
 
-      render(<TaskItem task={initialTasks[0]} />, { wrapper: Wrapper });
+      render(<TaskItem task={initialTask[0]} />, { wrapper: Wrapper });
 
-      const editTask = screen.getByText("Gym");
+      const editTask = screen.getByText("Meet Dan");
       fireEvent.doubleClick(editTask);
 
       const inputField: HTMLInputElement = screen.getByRole("textbox");

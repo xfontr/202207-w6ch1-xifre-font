@@ -1,6 +1,6 @@
 import { rest } from "msw";
 
-const url = "http://localhost:3000/posts/";
+const url = "http://localhost:3000/posts";
 
 export const handlers = [
   rest.get(url, (req, res, ctx) => {
@@ -8,9 +8,9 @@ export const handlers = [
       ctx.status(200),
       ctx.json([
         {
-          name: "Mikaeus",
-          colors: "#",
-          types: "#",
+          id: 1,
+          name: "Meet Dan",
+          done: false,
         },
       ])
     );
@@ -20,9 +20,9 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        name: "Nomad Mythmaker",
-        colors: "#",
-        types: "#",
+        id: 1,
+        name: "Meet Dan",
+        done: false,
       })
     );
   }),

@@ -1,10 +1,12 @@
 import {
   fireEvent,
+  getAllByText,
   render,
   renderHook,
   screen,
   waitFor,
 } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "../../app/store";
 import { deleteTaskActionNew } from "../../features/actionCreator/actionCreator";
@@ -38,8 +40,8 @@ describe("Given a TaskForm component", () => {
 
   describe("When instantiated and the user clicks add a new task", () => {
     test("Then it should add a new task with the input value", async () => {
-      const initialTasks = 4;
-      const expectedTasks = 5;
+      const initialTasks = 1;
+      const expectedTasks = 2;
 
       render(
         <Provider store={store}>
@@ -48,8 +50,11 @@ describe("Given a TaskForm component", () => {
         </Provider>
       );
 
-      const button = screen.getByRole("button", { name: "Add" });
-      const tasks = screen.getAllByRole("article");
+      let button: HTMLButtonElement;
+      let tasks: HTMLElement[] = [];
+
+      button = screen.getByRole("button", { name: "Add" });
+      tasks = screen.getAllByRole("article");
 
       expect(tasks).toHaveLength(initialTasks);
 
@@ -97,15 +102,18 @@ describe("Given a TaskForm component", () => {
         </Provider>
       );
 
+      const initialState = screen.getAllByText(expectedText);
+
       const input = screen.getByRole("textbox");
       const button = screen.getByRole("button", { name: "Add" });
 
       fireEvent.change(input, { target: { value: newInput } });
       fireEvent.click(button);
-      const newTask = screen.getByText(expectedText);
+
+      const latterState = screen.getAllByText(expectedText);
 
       await waitFor(() => {
-        expect(newTask).toBeInTheDocument();
+        expect(latterState).toHaveLength(initialState.length + 1);
       });
     });
   });
@@ -132,9 +140,19 @@ describe("Given a TaskForm component", () => {
         wrapper: Wrapper,
       });
 
-      for (let index = 1; index < 5; index += 1) {
-        current(deleteTaskActionNew(index));
-      }
+      const {
+        result: {
+          current: { tasks: tasksToDelete },
+        },
+      } = renderHook(() => useSelector(selectAllTasks), {
+        wrapper: Wrapper,
+      });
+
+      act(() => {
+        tasksToDelete.forEach((task) => {
+          current(deleteTaskActionNew(task.id));
+        });
+      });
 
       const {
         result: {
