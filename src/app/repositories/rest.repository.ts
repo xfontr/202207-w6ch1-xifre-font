@@ -24,7 +24,7 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
       return response.json();
     } catch (error) {
-      return error;
+      return "Error";
     }
   }
 
