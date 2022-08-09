@@ -60,7 +60,7 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     dispatch(
       editTaskActionNew({
         id: task.id,
-        name: userInput,
+        name: userInput ? userInput : task.name,
         done: !task.done,
       })
     );
