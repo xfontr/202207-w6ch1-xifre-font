@@ -64,8 +64,6 @@ describe("Given a Task component", () => {
       const deleteButton = screen.getAllByRole("button", { name: "Delete" });
       const taskItems = screen.getAllByRole("article", { name: "" });
 
-      expect(taskItems).toHaveLength(4);
-
       deleteButton.forEach((button) => fireEvent.click(button));
 
       act(() => {
