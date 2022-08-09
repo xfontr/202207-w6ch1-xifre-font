@@ -50,7 +50,7 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
   async update(item: Partial<T>) {
     try {
-      const response = await fetch(this.url + item.id, {
+      const response = await fetch(`${this.url}/${item.id}`, {
         method: "PATCH",
         body: JSON.stringify(item),
         headers: {
@@ -64,7 +64,7 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
       return response.json();
     } catch (error) {
-      return error;
+      return "Error";
     }
   }
 

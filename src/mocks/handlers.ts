@@ -54,4 +54,22 @@ export const handlers = [
       })
     );
   }),
+
+  rest.patch(`${url}/1`, (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        successMessage: "Task modified",
+      })
+    );
+  }),
+
+  rest.patch(invalidUrl, (req, res, ctx) => {
+    return res(
+      ctx.status(400),
+      ctx.json({
+        error: "Error",
+      })
+    );
+  }),
 ];

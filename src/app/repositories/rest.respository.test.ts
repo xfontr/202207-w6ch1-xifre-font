@@ -87,4 +87,36 @@ describe("Given a RestRepository class", () => {
       expect(expectedResult).toBe(result);
     });
   });
+
+  describe("When instantiated with a valid url and with the method update, with a task as an argument", () => {
+    test("Then it should return a success message", async () => {
+      const restRepo = new RestRepository(validUrl);
+      const updatedTask = {
+        id: 1,
+        name: "Meet Uncle Bob",
+        done: true,
+      };
+      const expectedResult = { successMessage: "Task modified" };
+
+      const result = await restRepo.update(updatedTask);
+
+      expect(result).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe("When instantiated with an invalid url and with the method update, with a task as an argument", () => {
+    test("Then it should return a success message", async () => {
+      const restRepo = new RestRepository(invalidUrl);
+      const updatedTask = {
+        id: 1,
+        name: "Meet Uncle Bob",
+        done: true,
+      };
+      const expectedResult = "Error";
+
+      const result = await restRepo.update(updatedTask);
+
+      expect(result).toBe(expectedResult);
+    });
+  });
 });
