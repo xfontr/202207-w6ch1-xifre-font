@@ -10,7 +10,7 @@ import RestRepository from "../../app/repositories/rest.repository";
 const url = "http://localhost:3000/posts/";
 
 const TaskForm = (): JSX.Element => {
-  const repoTasks = useMemo(() => new RestRepository<Task, Response>(url), []);
+  const repoTasks = useMemo(() => new RestRepository<Task>(url), []);
 
   const dispatch = useDispatch();
   const { tasks } = useSelector(selectAllTasks);

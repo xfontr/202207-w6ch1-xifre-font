@@ -17,7 +17,7 @@ interface TaskProps {
 const url = "http://localhost:3000/posts/";
 
 const TaskItem = ({ task }: TaskProps): JSX.Element => {
-  const repoTasks = useMemo(() => new RestRepository<Task, Response>(url), []);
+  const repoTasks = useMemo(() => new RestRepository<Task>(url), []);
   const dispatch = useDispatch();
 
   const [{ isEdit, userInput }, setEditStatus] = useState({
@@ -51,7 +51,7 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
     setTimeout(() => {
       repoTasks
         .delete(task.id)
-        .then((tasks) => dispatch(deleteTaskActionNew(task.id)));
+        .then(() => dispatch(deleteTaskActionNew(task.id)));
     }, 600);
   };
 
