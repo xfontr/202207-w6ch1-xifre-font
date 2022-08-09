@@ -11,7 +11,7 @@ const url = "http://localhost:3000/posts";
 
 const TaskList = () => {
   const dispatch = useDispatch();
-  const repoTasks = useMemo(() => new RestRepository<Task, Response>(url), []);
+  const repoTasks = useMemo(() => new RestRepository<Task>(url), []);
 
   useEffect(() => {
     repoTasks.loadAll().then((tasks) => dispatch(loadTaskActionNew(tasks)));
