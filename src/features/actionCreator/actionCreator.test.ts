@@ -1,6 +1,7 @@
 import {
   addTaskActionNew,
   deleteTaskActionNew,
+  editTaskActionNew,
   loadTaskActionNew,
   toggleTaskStatusActionNew,
 } from "./actionCreator";
@@ -68,7 +69,28 @@ describe("Given a deleteTaskActionNew function", () => {
 
 describe("Given a toggleTaskStatusActionNew function", () => {
   describe("When instantiated with an number as an argument", () => {
-    test("Then it should return an action with type 'deleteTasks' and an id as payload", () => {
+    test("Then it should return an action with type 'editTasks' and an id as payload", () => {
+      const task = {
+        id: 1,
+        name: "",
+        done: false,
+      };
+
+      const expectedResult = {
+        type: "tasks@edit",
+        payload: task,
+      };
+
+      const result = editTaskActionNew(task);
+
+      expect(result).toEqual(expectedResult);
+    });
+  });
+});
+
+describe("Given a editTaskActionNew function", () => {
+  describe("When instantiated with a Task as an argument", () => {
+    test("Then it should return an action with type 'editTask' and the same task as payload", () => {
       const taskId = 1;
 
       const expectedResult = {
