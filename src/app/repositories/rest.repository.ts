@@ -24,7 +24,7 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
       return response.json();
     } catch (error) {
-      return error;
+      return "Error";
     }
   }
 
@@ -44,13 +44,13 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
       return response.json();
     } catch (error) {
-      return error;
+      return "Error";
     }
   }
 
   async update(item: Partial<T>) {
     try {
-      const response = await fetch(this.url + item.id, {
+      const response = await fetch(`${this.url}/${item.id}`, {
         method: "PATCH",
         body: JSON.stringify(item),
         headers: {
@@ -64,13 +64,13 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
       return response.json();
     } catch (error) {
-      return error;
+      return "Error";
     }
   }
 
   async delete(id: T["id"]) {
     try {
-      const response = await fetch(this.url + id, {
+      const response = await fetch(`${this.url}/${id}`, {
         method: "DELETE",
       });
 
@@ -80,7 +80,7 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
 
       return response;
     } catch (error) {
-      return error;
+      return "Error";
     }
   }
 }
