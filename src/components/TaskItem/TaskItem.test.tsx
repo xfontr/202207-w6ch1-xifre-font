@@ -45,9 +45,11 @@ describe("Given a Task component", () => {
         </Provider>
       );
 
-      const taskItem = screen.getByRole("article", { name: "" });
+      const taskName = screen.getByText(task.name);
+      const taskId = screen.getByText(task.id);
 
-      expect(taskItem).toBeInTheDocument();
+      expect(taskName).toBeInTheDocument();
+      expect(taskId).toBeInTheDocument();
     });
   });
 

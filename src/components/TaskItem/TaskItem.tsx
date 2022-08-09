@@ -76,6 +76,7 @@ const TaskItem = ({ task }: TaskProps): JSX.Element => {
           toggleStatus(task.id);
         }}
       >
+        <span className="task-container__id">{task.id}</span>
         {!isEdit && (
           <span
             className={`task-name${task.done ? " task-name--done" : ""}`}
