@@ -23,6 +23,7 @@ const TaskForm = (): JSX.Element => {
 
   const addTask = (): void => {
     dispatch(addTaskActionNew(createTask()));
+    setUserInput("");
   };
 
   return (
@@ -32,6 +33,7 @@ const TaskForm = (): JSX.Element => {
         type="text"
         id="add-task__name"
         className="add-task__name"
+        value={userInput}
         onChange={(event): void => {
           setUserInput(event.target.value);
         }}

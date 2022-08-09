@@ -89,6 +89,7 @@ describe("Given a TaskForm component", () => {
     test("Then a default text of 'You forgot to add text haha' should be displayed in the task", async () => {
       const newInput = "";
       const expectedText = "You forgot to add text haha";
+
       render(
         <Provider store={store}>
           <TaskForm />
@@ -156,6 +157,27 @@ describe("Given a TaskForm component", () => {
 
       await waitFor(() => {
         expect(tasksAfterDelete[0].id).toBe(expectedId);
+      });
+    });
+  });
+
+  describe("When the user adds a task", () => {
+    test("Then the input field should have an empty value on submit", async () => {
+      render(
+        <Provider store={store}>
+          <TaskForm />
+          <TaskList />
+        </Provider>
+      );
+
+      const input: HTMLInputElement = screen.getByRole("textbox");
+      const button = screen.getByRole("button", { name: "Add" });
+
+      fireEvent.change(input, { target: { value: "Clean" } });
+      fireEvent.click(button);
+
+      await waitFor(() => {
+        expect(input.value).toBe("");
       });
     });
   });
