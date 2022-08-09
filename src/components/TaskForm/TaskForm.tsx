@@ -16,7 +16,7 @@ const TaskForm = (): JSX.Element => {
 
     return {
       id: lastId + 1,
-      name: userInput ? userInput : "You forgot to add text haha",
+      name: userInput ? userInput : "Press double click edit this task",
       done: false,
     };
   };

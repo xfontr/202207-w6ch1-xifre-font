@@ -9,6 +9,7 @@ const TaskListStyled = styled.section`
 
   backdrop-filter: blur(2px);
   overflow-y: scroll;
+  overflow-x: visible;
   height: 90vh;
 
   &::-webkit-scrollbar {
@@ -19,6 +20,7 @@ const TaskListStyled = styled.section`
     display: flex;
     flex-direction: column;
     gap: var(--container-gap);
+    overflow: visible;
   }
 
   & .info-tag {
