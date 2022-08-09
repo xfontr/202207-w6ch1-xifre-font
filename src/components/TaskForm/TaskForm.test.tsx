@@ -5,6 +5,7 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "../../app/store";
 import { deleteTaskActionNew } from "../../features/actionCreator/actionCreator";
@@ -48,8 +49,11 @@ describe("Given a TaskForm component", () => {
         </Provider>
       );
 
-      const button = screen.getByRole("button", { name: "Add" });
-      const tasks = screen.getAllByRole("article");
+      let button: HTMLButtonElement;
+      let tasks: HTMLElement[] = [];
+
+      button = screen.getByRole("button", { name: "Add" });
+      tasks = screen.getAllByRole("article");
 
       expect(tasks).toHaveLength(initialTasks);
 
@@ -132,9 +136,19 @@ describe("Given a TaskForm component", () => {
         wrapper: Wrapper,
       });
 
-      for (let index = 1; index < 5; index += 1) {
-        current(deleteTaskActionNew(index));
-      }
+      const {
+        result: {
+          current: { tasks: tasksToDelete },
+        },
+      } = renderHook(() => useSelector(selectAllTasks), {
+        wrapper: Wrapper,
+      });
+
+      act(() => {
+        tasksToDelete.forEach((task) => {
+          current(deleteTaskActionNew(task.id));
+        });
+      });
 
       const {
         result: {

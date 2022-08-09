@@ -1,6 +1,6 @@
 import { rest } from "msw";
 
-const url = "http://localhost:3000/posts/";
+const url = "http://localhost:3000/posts";
 
 export const handlers = [
   rest.get(url, (req, res, ctx) => {
