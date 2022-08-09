@@ -5,7 +5,7 @@ interface RestRepositoryType<T extends Task> {
   loadAll: () => Promise<Array<T>>;
   add: (item: Partial<T>) => Promise<T>;
   update: (item: Partial<T>) => Promise<T>;
-  delete: (id: T["id"]) => Promise<Response>;
+  delete: (id: T["id"]) => Promise<Response | unknown>;
 }
 class RestRepository<T extends Task> implements RestRepositoryType<T> {
   constructor(public url: string) {}
@@ -15,34 +15,73 @@ class RestRepository<T extends Task> implements RestRepositoryType<T> {
   }
 
   async loadAll() {
-    const response = await fetch(this.url);
-    return response.json();
+    try {
+      const response = await fetch(this.url);
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      return response.json();
+    } catch (error) {
+      return error;
+    }
   }
 
-  add(item: Partial<T>) {
-    return fetch(this.url, {
-      method: "POST",
-      body: JSON.stringify(item),
-      headers: {
-        "content-type": "application/json",
-      },
-    }).then((response) => response.json());
+  async add(item: Partial<T>) {
+    try {
+      const response = await fetch(this.url, {
+        method: "POST",
+        body: JSON.stringify(item),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      return response.json();
+    } catch (error) {
+      return error;
+    }
   }
 
-  update(item: Partial<T>) {
-    return fetch(this.url + item.id, {
-      method: "PATCH",
-      body: JSON.stringify(item),
-      headers: {
-        "content-type": "application/json",
-      },
-    }).then((response) => response.json());
+  async update(item: Partial<T>) {
+    try {
+      const response = await fetch(this.url + item.id, {
+        method: "PATCH",
+        body: JSON.stringify(item),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      return response.json();
+    } catch (error) {
+      return error;
+    }
   }
 
-  delete(id: T["id"]) {
-    return fetch(this.url + id, {
-      method: "DELETE",
-    });
+  async delete(id: T["id"]) {
+    try {
+      const response = await fetch(this.url + id, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      return response;
+    } catch (error) {
+      return error;
+    }
   }
 }
 

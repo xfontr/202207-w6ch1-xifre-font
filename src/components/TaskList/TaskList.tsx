@@ -14,7 +14,9 @@ const TaskList = () => {
   const repoTasks = useMemo(() => new RestRepository<Task>(url), []);
 
   useEffect(() => {
-    repoTasks.loadAll().then((tasks) => dispatch(loadTaskActionNew(tasks)));
+    repoTasks.loadAll().then((tasks: Task[]) => {
+      if (tasks.length > 0) dispatch(loadTaskActionNew(tasks));
+    });
   }, [dispatch, repoTasks]);
 
   const { tasks: taskList } = useSelector(selectAllTasks);
